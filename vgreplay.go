@@ -1,7 +1,6 @@
 package vaingloryreplay
 
 import (
-	"bytes"
 	"io/ioutil"
 	"path/filepath"
 	"strconv"
@@ -87,22 +86,22 @@ func FrameCount(path string, name string) int {
 }
 //returns the number of Frames the replay has
 
-func ReadFrame(path, name string, frame int) (* bytes.Buffer, error) {
+func ReadFrame(path, name string, frame int) ([]byte, error) {
 	b, err := ioutil.ReadFile(Path(path,name,frame))
-	return bytes.NewBuffer(b), err
+	return b, err
 }
 //reads a Frame
 
-func WriteFrame(path, name string, frame int, buf * bytes.Buffer) error {
+func WriteFrame(path, name string, frame int, b []byte) error {
 	path = Path(path,name,frame)
 	f, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE, 0755)
 	if err != nil {
 		return err
 	}
-	if err = f.Truncate(int64(buf.Len())); err != nil {
+	if err = f.Truncate(int64(len(b))); err != nil {
 		return err
 	}
-	if _, err = buf.WriteTo(f); err != nil {
+	if _, err = f.WriteAt(b,0); err != nil {
 		return err
 	}
 	return nil

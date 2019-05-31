@@ -38,11 +38,11 @@ func main() {
 		panic(err)
 	}
 	for i := 0; i < vgr.FrameCount(source, name); i++ {
-		buf, err := vgr.ReadFrame(source, name, i)
+		b, err := vgr.ReadFrame(source, name, i)
 		if err != nil {
 			panic(err)
 		}
-		if err := vgr.WriteFrame(save, sname, i, buf); err != nil {
+		if err := vgr.WriteFrame(save, sname, i, b); err != nil {
 			panic(err)
 		}
 	}
