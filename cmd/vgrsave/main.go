@@ -37,12 +37,12 @@ func main() {
 	if err := os.MkdirAll(save, 0755); err != nil {
 		panic(err)
 	}
-	for i := 0; i < vgr.FragmentCount(source, name); i++ {
-		buf, err := vgr.ReadFragment(source, name, i)
+	for i := 0; i < vgr.FrameCount(source, name); i++ {
+		buf, err := vgr.ReadFrame(source, name, i)
 		if err != nil {
 			panic(err)
 		}
-		if err := vgr.WriteFragment(save, sname, i, buf); err != nil {
+		if err := vgr.WriteFrame(save, sname, i, buf); err != nil {
 			panic(err)
 		}
 	}

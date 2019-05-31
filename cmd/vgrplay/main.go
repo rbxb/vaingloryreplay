@@ -34,18 +34,18 @@ func main() {
 			panic(errors.New("No overwrite replay available in " + overwrite))
 		}
 	}
-	count := vgr.FragmentCount(overwrite, oname)
+	count := vgr.FrameCount(overwrite, oname)
 	for i := 0; i < count; i++ {
-		if err := vgr.DeleteFragment(overwrite, oname, i); err != nil {
+		if err := vgr.DeleteFrame(overwrite, oname, i); err != nil {
 			panic(err)
 		}
 	}
-	for i := 0; i < vgr.FragmentCount(source, sname); i++ {
-		buf, err := vgr.ReadFragment(source, sname, i)
+	for i := 0; i < vgr.FrameCount(source, sname); i++ {
+		buf, err := vgr.ReadFrame(source, sname, i)
 		if err != nil {
 			panic(err)
 		}
-		if err := vgr.WriteFragment(overwrite, oname, i, buf); err != nil {
+		if err := vgr.WriteFrame(overwrite, oname, i, buf); err != nil {
 			panic(err)
 		}
 	}

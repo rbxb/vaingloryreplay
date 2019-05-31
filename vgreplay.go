@@ -8,8 +8,8 @@ import (
 	"os"
 )
 
-func Path(path, name string, frag int) string {
-	return filepath.Join(path, name + "." + strconv.Itoa(frag) + ".vgr")
+func Path(path, name string, frame int) string {
+	return filepath.Join(path, name + "." + strconv.Itoa(frame) + ".vgr")
 }
 //returns the filepath to the .vgr file
 
@@ -72,7 +72,7 @@ func LastModified(path string) string {
 }
 //returns the name of the most recently modified replay
 
-func FragmentCount(path string, name string) int {
+func FrameCount(path string, name string) int {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		return 0
@@ -85,16 +85,16 @@ func FragmentCount(path string, name string) int {
 	}
 	return count
 }
-//returns the number of fragments the replay has
+//returns the number of Frames the replay has
 
-func ReadFragment(path, name string, frag int) (* bytes.Buffer, error) {
-	b, err := ioutil.ReadFile(Path(path,name,frag))
+func ReadFrame(path, name string, frame int) (* bytes.Buffer, error) {
+	b, err := ioutil.ReadFile(Path(path,name,frame))
 	return bytes.NewBuffer(b), err
 }
-//reads a fragment
+//reads a Frame
 
-func WriteFragment(path, name string, frag int, buf * bytes.Buffer) error {
-	path = Path(path,name,frag)
+func WriteFrame(path, name string, frame int, buf * bytes.Buffer) error {
+	path = Path(path,name,frame)
 	f, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE, 0755)
 	if err != nil {
 		return err
@@ -107,9 +107,9 @@ func WriteFragment(path, name string, frag int, buf * bytes.Buffer) error {
 	}
 	return nil
 }
-//writes or overwrites a fragment
+//writes or overwrites a Frame
 
-func DeleteFragment(path, name string, frag int) error {
-	return os.Remove(Path(path,name,frag))
+func DeleteFrame(path, name string, frame int) error {
+	return os.Remove(Path(path,name,frame))
 }
-//deletes a fragment
+//deletes a Frame
