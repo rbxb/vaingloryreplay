@@ -98,6 +98,7 @@ func WriteFrame(path, name string, frame int, b []byte) error {
 	if err != nil {
 		return err
 	}
+	defer f.Close()
 	if err = f.Truncate(int64(len(b))); err != nil {
 		return err
 	}
