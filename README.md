@@ -1,7 +1,3 @@
----
-title: vaingloryreplay
----
-
 # vaingloryreplay
 
 This package makes it possible to save and later play back Vainglory replays.
